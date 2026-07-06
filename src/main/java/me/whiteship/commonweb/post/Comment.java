@@ -3,6 +3,12 @@ package me.whiteship.commonweb.post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 
 @NamedEntityGraph(name = "Comment.post", attributeNodes = @NamedAttributeNode("post"))
@@ -21,4 +27,18 @@ public class Comment {
     private int up;
     private int down;
     private boolean best;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @CreatedBy
+    @ManyToOne
+    private Account createdBy;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    @LastModifiedBy
+    @ManyToOne
+    private Account updatedBy;
 }
