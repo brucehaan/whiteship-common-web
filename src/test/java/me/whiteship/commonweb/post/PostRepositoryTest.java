@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,7 +66,7 @@ class PostRepositoryTest {
     void findByTitle() {
         savePost();
 
-        List<Post> all = postRepository.findByTitle("Spring");
+        List<Post> all = postRepository.findByTitle("Spring", Sort.by("title"));
         assertThat(all.size()).isEqualTo(1);
     }
 }
