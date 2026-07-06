@@ -20,20 +20,21 @@ class CommentRepositoryTest {
 
     @Test
     void getComment() {
-//        Post post = new Post();
-//        post.setTitle("jpa");
-//        Post savedPost = postRepository.save(post);
-//
-//        Comment comment = new Comment();
-//        comment.setComment("comment");
-//        comment.setPost(savedPost);
-//        commentRepository.save(comment);
+        Post post = new Post();
+        post.setTitle("jpa");
+        Post savedPost = postRepository.save(post);
 
-//        Optional<Comment> byId = commentRepository.findById(1l);
-//        log.info("{}", byId.get().getPost());
+        Comment comment = new Comment();
+        comment.setComment("12341234");
+        comment.setPost(savedPost);
+        comment.setUp(19);
+        comment.setDown(1);
+        commentRepository.save(comment);
 
-        commentRepository.getReferenceById(1l);
-        commentRepository.findById(1l);
+        commentRepository.findByPost_Id(savedPost.getId(), CommentSummary.class).forEach(c -> {
+            log.info("=======================");
+            log.info(c.getVotes());
+        });
     }
 
 }
