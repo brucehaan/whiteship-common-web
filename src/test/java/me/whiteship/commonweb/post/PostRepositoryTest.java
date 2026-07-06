@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,10 +57,10 @@ class PostRepositoryTest {
         assertThat(all.size()).isEqualTo(1);
     }
 
-    private void savePost() {
+    private Post savePost() {
         Post post = new Post();
         post.setTitle("Spring");
-        postRepository.save(post); // persist
+        return postRepository.save(post); // persist
     }
 
     @Test
@@ -68,5 +69,20 @@ class PostRepositoryTest {
 
         List<Post> all = postRepository.findByTitle("Spring", Sort.by("title"));
         assertThat(all.size()).isEqualTo(1);
+    }
+
+    @Test
+    void updateTitle() {
+        Post spring = savePost();
+//        String title = "hibernate";
+//        int update = postRepository.updateTitle(title, spring.getId());
+//        assertThat(update).isEqualTo(1);
+//
+//        Optional<Post> byId = postRepository.findById(spring.getId());
+//        assertThat(byId.get().getTitle()).isEqualTo(title);
+        spring.setTitle("hibernate");
+
+        List<Post> all = postRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo("hibernate");
     }
 }
